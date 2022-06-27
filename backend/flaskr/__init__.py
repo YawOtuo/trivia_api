@@ -48,7 +48,7 @@ def create_app(test_config=None):
     @app.route('/categories')
     def get_categories():
         categories = Category.query.order_by(Category.id).all()
-        print('categories ...', categories, file=open('output.txt', 'a'))
+        # print('categories ...', categories, file=open('output.txt', 'a'))
 
         if len(categories) == 0:
             abort(404)
@@ -86,7 +86,6 @@ def create_app(test_config=None):
     def delete_questions(id):
         try:
             question = Question.query.get(id)
-            # add a try statement hear
             if question is None:
                 abort(404)
             else:
@@ -125,7 +124,7 @@ def create_app(test_config=None):
             newQuestion = Question(
                 question=question, answer=answer, difficulty=difficulty, category=category)
             newQuestion.insert()
-            print('question ...', question, file=open('output.txt', 'a'))
+            # print('question ...', question, file=open('output.txt', 'a'))
 
             return jsonify({
                 'success': True,
@@ -147,7 +146,7 @@ def create_app(test_config=None):
             questions = Question.query.filter(
                 Question.question.ilike('%'+query+'%')).all()
 
-            print('questions ...', questions, file=open('output.txt', 'a'))
+            # print('questions ...', questions, file=open('output.txt', 'a'))
 
             # add current category
             return jsonify({
@@ -178,18 +177,18 @@ def create_app(test_config=None):
         previous_questions = request.json['previous_questions']
         
         category = request.json['quiz_category']
-        print('previous question ...', previous_questions,
-              file=open('output.txt', 'a'))
+        # print('previous question ...', previous_questions,
+        #       file=open('output.txt', 'a'))
 
         oldQuestionsId = [0]
         lastQuestionId = Question.query.first().id
         
         for i in range(len(previous_questions)):
-            print('previous questions index ...', previous_questions[i],
-                              file=open('output.txt', 'a'))
+            # print('previous questions index ...', previous_questions[i],
+            #                   file=open('output.txt', 'a'))
 
             oldQuestions = Question.query.filter(Question.id == previous_questions[i], Question.category == category).all()
-            print('old question ...', oldQuestions, file=open('output.txt', 'a'))
+            # print('old question ...', oldQuestions, file=open('output.txt', 'a'))
             for question in oldQuestions:
                 lastQuestionId = question.getLastId()
 
@@ -209,9 +208,9 @@ def create_app(test_config=None):
         
         try:
                 newQuestion = Question.query.get(id)
-                print('randint...', id, file=open('output.txt', 'a'))
+                # print('randint...', id, file=open('output.txt', 'a'))
 
-                print('newQuestion', newQuestion,  file=open('output.txt', 'a'))
+                # print('newQuestion', newQuestion,  file=open('output.txt', 'a'))
 
 
 
@@ -231,7 +230,7 @@ def create_app(test_config=None):
         return jsonify({
             'success': False,
             "error": 400,
-            "message": "bad request"
+            "message": "bad request sent"
         }), 400
 
     @app.errorhandler(404)
