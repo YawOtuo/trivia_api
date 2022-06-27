@@ -1,0 +1,231 @@
+categories ... [<Category 1>, <Category 2>]
+category ... {'type': 'selfs', 'id': '1'}
+previous question ... []
+old question id... [0]
+last question id... 1
+
+categories ... [<Category 1>, <Category 2>]
+category ... {'type': 'selfs', 'id': '1'}
+previous question ... []
+old question id... [0]
+last question id... 1
+categories ... [<Category 1>, <Category 2>]
+previous question ... []
+old question id... [0]
+last question id... 1
+randint... 1
+categories ... [<Category 1>, <Category 2>]
+previous question ... []
+old question id... [0]
+last question id... 1
+randint... 1
+categories ... [<Category 1>, <Category 2>]
+previous question ... []
+old question id... [0]
+last question id... 1
+categories ... [<Category 1>, <Category 2>]
+previous question ... []
+old question id... [0]
+last question id... 1
+randint... 1
+newQuestion <Question 1>
+previous question ... [1]
+previous questions index ... 1
+old question ... [<Question 1>]
+old question id... [0, 1]
+last question id... 6
+randint... 6
+newQuestion <Question 6>
+previous question ... [1, 6]
+previous questions index ... 1
+old question ... [<Question 1>]
+previous questions index ... 6
+old question ... [<Question 6>]
+old question id... [0, 1, 6]
+last question id... 6
+randint... 3
+newQuestion <Question 3>
+previous question ... [1, 6, 3]
+previous questions index ... 1
+old question ... [<Question 1>]
+previous questions index ... 6
+old question ... [<Question 6>]
+previous questions index ... 3
+old question ... [<Question 3>]
+old question id... [0, 1, 6, 3]
+last question id... 6
+randint... 4
+newQuestion <Question 4>
+previous question ... [1, 6, 3, 4]
+previous questions index ... 1
+old question ... [<Question 1>]
+previous questions index ... 6
+old question ... [<Question 6>]
+previous questions index ... 3
+old question ... [<Question 3>]
+previous questions index ... 4
+old question ... [<Question 4>]
+old question id... [0, 1, 6, 3, 4]
+last question id... 6
+randint... 2
+newQuestion None
+previous question ... [1, 6, 3, 4]
+previous questions index ... 1
+old question ... [<Question 1>]
+previous questions index ... 6
+old question ... [<Question 6>]
+previous questions index ... 3
+old question ... [<Question 3>]
+previous questions index ... 4
+old question ... [<Question 4>]
+old question id... [0, 1, 6, 3, 4]
+last question id... 6
+randint... 2
+newQuestion None
+categories ... [<Category 1>, <Category 2>]
+previous question ... []
+old question id... [0]
+last question id... 1
+randint... 1
+newQuestion <Question 1>
+previous question ... [1]
+previous questions index ... 1
+old question ... [<Question 1>]
+old question id... [0, 1]
+last question id... 6
+randint... 6
+newQuestion <Question 6>
+previous question ... [1, 6]
+previous questions index ... 1
+old question ... [<Question 1>]
+previous questions index ... 6
+old question ... [<Question 6>]
+old question id... [0, 1, 6]
+last question id... 6
+randint... 2
+newQuestion None
+previous question ... [1, 6]
+previous questions index ... 1
+old question ... [<Question 1>]
+previous questions index ... 6
+old question ... [<Question 6>]
+old question id... [0, 1, 6]
+last question id... 6
+randint... 5
+newQuestion <Question 5>
+previous question ... [1, 6, 5]
+previous questions index ... 1
+old question ... [<Question 1>]
+previous questions index ... 6
+old question ... [<Question 6>]
+previous questions index ... 5
+old question ... [<Question 5>]
+old question id... [0, 1, 6, 5]
+last question id... 6
+randint... 4
+newQuestion <Question 4>
+previous question ... [1, 6, 5, 4]
+previous questions index ... 1
+old question ... [<Question 1>]
+previous questions index ... 6
+old question ... [<Question 6>]
+previous questions index ... 5
+old question ... [<Question 5>]
+previous questions index ... 4
+old question ... [<Question 4>]
+old question id... [0, 1, 6, 5, 4]
+last question id... 6
+randint... 3
+newQuestion <Question 3>
+previous question ... [1, 6, 5, 4, 3]
+previous questions index ... 1
+old question ... [<Question 1>]
+previous questions index ... 6
+old question ... [<Question 6>]
+previous questions index ... 5
+old question ... [<Question 5>]
+previous questions index ... 4
+old question ... [<Question 4>]
+previous questions index ... 3
+old question ... [<Question 3>]
+old question id... [0, 1, 6, 5, 4, 3]
+last question id... 6
+randint... 2
+newQuestion None
+previous question ... [1, 6, 5, 4, 3]
+previous questions index ... 1
+old question ... [<Question 1>]
+previous questions index ... 6
+old question ... [<Question 6>]
+previous questions index ... 5
+old question ... [<Question 5>]
+previous questions index ... 4
+old question ... [<Question 4>]
+previous questions index ... 3
+old question ... [<Question 3>]
+old question id... [0, 1, 6, 5, 4, 3]
+last question id... 6
+randint... 2
+newQuestion None
+previous question ... [1, 6, 5, 4, 3]
+previous questions index ... 1
+old question ... [<Question 1>]
+previous questions index ... 6
+old question ... [<Question 6>]
+previous questions index ... 5
+old question ... [<Question 5>]
+previous questions index ... 4
+old question ... [<Question 4>]
+previous questions index ... 3
+old question ... [<Question 3>]
+old question id... [0, 1, 6, 5, 4, 3]
+last question id... 6
+randint... 2
+newQuestion None
+categories ... [<Category 1>, <Category 2>]
+categories ... [<Category 1>, <Category 2>]
+previous question ... []
+old question id... [0]
+last question id... 1
+randint... 1
+newQuestion <Question 1>
+categories ... [<Category 1>, <Category 2>]
+previous question ... []
+old question id... [0]
+last question id... 1
+randint... 1
+newQuestion <Question 1>
+categories ... [<Category 1>, <Category 2>]
+previous question ... []
+old question id... [0]
+last question id... 1
+randint... 1
+newQuestion <Question 1>
+categories ... [<Category 1>, <Category 2>]
+previous question ... []
+old question id... [0]
+last question id... 1
+randint... 1
+newQuestion <Question 1>
+categories ... [<Category 1>, <Category 2>]
+previous question ... []
+old question id... [0]
+last question id... 1
+randint... 1
+newQuestion <Question 1>
+categories ... [<Category 1>, <Category 2>]
+previous question ... []
+old question id... [0]
+last question id... 1
+randint... 1
+newQuestion <Question 1>
+categories ... [<Category 1>, <Category 2>]
+categories ... [{'id': 1, 'question': 'what is Gods name', 'answer': 'Jehovah', 'category': '1', 'difficulty': 1}, {'id': 3, 'question': 'Do you', 'answer': 'i do', 'category': '1', 'difficulty': 1}, {'id': 4, 'question': 'do i', 'answer': 'tes', 'category': '1', 'difficulty': 1}, {'id': 5, 'question': 'what is your favorite color', 'answer': 'purple', 'category': '2', 'difficulty': 1}, {'id': 6, 'question': 'Capa?', 'answer': 'oui', 'category': 'art', 'difficulty': 1}]
+categories ... [<Category 1>, <Category 2>]
+question ... tx
+categories ... [{'id': 1, 'question': 'what is Gods name', 'answer': 'Jehovah', 'category': '1', 'difficulty': 1}, {'id': 3, 'question': 'Do you', 'answer': 'i do', 'category': '1', 'difficulty': 1}, {'id': 4, 'question': 'do i', 'answer': 'tes', 'category': '1', 'difficulty': 1}, {'id': 5, 'question': 'what is your favorite color', 'answer': 'purple', 'category': '2', 'difficulty': 1}, {'id': 6, 'question': 'Capa?', 'answer': 'oui', 'category': 'art', 'difficulty': 1}, {'id': 7, 'question': 'tx', 'answer': 'qwe', 'category': '1', 'difficulty': 1}]
+questions ... [<Question 7>]
+questions ... [<Question 3>, <Question 4>]
+categories ... [<Category 1>, <Category 2>]
+question ... zoom
+categories ... [{'id': 1, 'question': 'what is Gods name', 'answer': 'Jehovah', 'category': '1', 'difficulty': 1}, {'id': 3, 'question': 'Do you', 'answer': 'i do', 'category': '1', 'difficulty': 1}, {'id': 4, 'question': 'do i', 'answer': 'tes', 'category': '1', 'difficulty': 1}, {'id': 5, 'question': 'what is your favorite color', 'answer': 'purple', 'category': '2', 'difficulty': 1}, {'id': 6, 'question': 'Capa?', 'answer': 'oui', 'category': 'art', 'difficulty': 1}, {'id': 7, 'question': 'tx', 'answer': 'qwe', 'category': '1', 'difficulty': 1}, {'id': 8, 'question': 'zoom', 'answer': 'cheque', 'category': 'selfs', 'difficulty': 1}]
