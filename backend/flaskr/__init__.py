@@ -1,5 +1,6 @@
 from distutils.log import error
 from hashlib import new
+from msilib.schema import Error
 import os
 from unicodedata import category
 from flask import Flask, request, abort, jsonify
@@ -115,22 +116,23 @@ def create_app(test_config=None):
         question = request.json['question']
         answer = request.json['answer']
         difficulty = request.json['difficulty']
-        category = Category.query.get(int(request.json['category'])).type
+        category = request.json['category']
 
     
-
         try:
+
             newQuestion = Question(
-                question=question, answer=answer, difficulty=difficulty, category=category)
+                    question=question, answer=answer, difficulty=difficulty, category=category)
             newQuestion.insert()
-            # print('question ...', question, file=open('output.txt', 'a'))
+                # print('question ...', question, file=open('output.txt', 'a'))
 
             return jsonify({
-                'success': True,
-                'message': f'successfully added {newQuestion.question} to the database'
-            })
-        except:
+                    'success': True,
+                    'message': f'successfully added {newQuestion.question} to the database'
+                })
+        except: 
             abort(422)
+      
 
     """
     TEST: When you submit a question on the "Add" tab,
@@ -177,7 +179,6 @@ def create_app(test_config=None):
 
     @app.route('/quizzes', methods=['POST'])
     def get_quiz_questions():
-        try: 
             previous_questions = request.json['previous_questions']
             
             category = request.json['quiz_category']
@@ -194,10 +195,11 @@ def create_app(test_config=None):
                 # print('previous questions index ...', previous_questions[i],
                 #                   file=open('output.txt', 'a'))
 
-                oldQuestions = Question.query.filter(Question.id == previous_questions[i], Question.category == category).all()
-                # print('old question ...', oldQuestions, file=open('output.txt', 'a'))
+                oldQuestions = Question.query.filter(Question.id == previous_questions[i], Question.category == category['id']).all()
+                print('old questiosn ...', oldQuestions, file=open('output.txt', 'a'))
                 for question in oldQuestions:
                     lastQuestionId = question.getLastId()
+                    print('getting last id...', lastQuestionId, file=open('output.txt', 'a'))
 
                     oldQuestionsId.append(question.id)
 
@@ -227,8 +229,7 @@ def create_app(test_config=None):
                     })
             except:
                     abort(404)
-        except:
-            abort(400)
+        
 
        
     
