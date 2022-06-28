@@ -98,7 +98,6 @@ def create_app(test_config=None):
                     'success': True,
                     'deleted': question.id,
                     "questions": current_questions,
-                    'message': 'delete complete',
 
                 }
             )
@@ -146,81 +145,90 @@ def create_app(test_config=None):
             questions = Question.query.filter(
                 Question.question.ilike('%'+query+'%')).all()
 
-            # print('questions ...', questions, file=open('output.txt', 'a'))
-
-            # add current category
+            print('questions ...', questions, file=open('output.txt', 'a'))
+            
             return jsonify({
-                'success': True,
-                'questions': [question.format() for question in questions],
-                'total_questions': len(questions),
+                    'success': True,
+                    'questions': [question.format() for question in questions],
+                    'total_questions': len(questions),
 
-            })
+            })  
         except:
-            abort(404)
+            abort(422)
 
     @app.route('/categories/<int:id>/questions', methods=['GET'])
     def get_questions_by_categories(id):
-        category = Category.query.get(id)
-        questions = Question.query.filter(
-            Question.category == category.type).all()
-
-        return jsonify(
-            {
-                'success': True,
-                'questions': [question.format() for question in questions],
-                'total_categories': len(Category.query.all())
-            }
-        )
+        try:
+            category = Category.query.get(id)
+            questions = Question.query.filter(
+                Question.category == category.type).all()
+            if questions is None:
+                abort(404)
+            else:
+                return jsonify(
+                    {
+                        'success': True,
+                        'questions': [question.format() for question in questions],
+                        'total_categories': len(Category.query.all())
+                    }
+                )
+        except: 
+            abort(404)
 
     @app.route('/quizzes', methods=['POST'])
     def get_quiz_questions():
-        previous_questions = request.json['previous_questions']
-        
-        category = request.json['quiz_category']
-        # print('previous question ...', previous_questions,
-        #       file=open('output.txt', 'a'))
+        try: 
+            previous_questions = request.json['previous_questions']
+            
+            category = request.json['quiz_category']
+            # print('previous question ...', previous_questions,
+            #       file=open('output.txt', 'a'))
 
-        oldQuestionsId = [0]
-        lastQuestionId = Question.query.first().id
-        
-        for i in range(len(previous_questions)):
-            # print('previous questions index ...', previous_questions[i],
-            #                   file=open('output.txt', 'a'))
+            oldQuestionsId = [0]
+            lastQuestionId = Question.query.first().id
+            print('previous questions..', previous_questions, file=open('output.txt', 'a'))
+            print('category', category, file=open('output.txt', 'a'))
 
-            oldQuestions = Question.query.filter(Question.id == previous_questions[i], Question.category == category).all()
-            # print('old question ...', oldQuestions, file=open('output.txt', 'a'))
-            for question in oldQuestions:
-                lastQuestionId = question.getLastId()
+            
+            for i in range(len(previous_questions)):
+                # print('previous questions index ...', previous_questions[i],
+                #                   file=open('output.txt', 'a'))
 
-                oldQuestionsId.append(question.id)
+                oldQuestions = Question.query.filter(Question.id == previous_questions[i], Question.category == category).all()
+                # print('old question ...', oldQuestions, file=open('output.txt', 'a'))
+                for question in oldQuestions:
+                    lastQuestionId = question.getLastId()
 
-
-        print('old question id...', oldQuestionsId, file=open('output.txt', 'a'))
-        print('last question id...', lastQuestionId, file=open('output.txt', 'a'))
-
-
-        
-
-        id = lastQuestionId
-        
-        while (id in oldQuestionsId):
-            id = random.randrange(0, lastQuestionId)
-        
-        try:
-                newQuestion = Question.query.get(id)
-                # print('randint...', id, file=open('output.txt', 'a'))
-
-                # print('newQuestion', newQuestion,  file=open('output.txt', 'a'))
+                    oldQuestionsId.append(question.id)
 
 
+            print('old question id...', oldQuestionsId, file=open('output.txt', 'a'))
+            print('last question id...', lastQuestionId, file=open('output.txt', 'a'))
 
-                return jsonify({
-                    'success': True,
-                    'question': newQuestion.format()
-                })
+
+            
+
+            id = lastQuestionId
+            
+            while (id in oldQuestionsId):
+                id = random.randrange(0, lastQuestionId)
+            
+            try:
+                    newQuestion = Question.query.get(id)
+                    # print('randint...', id, file=open('output.txt', 'a'))
+
+                    # print('newQuestion', newQuestion,  file=open('output.txt', 'a'))
+
+
+
+                    return jsonify({
+                        'success': True,
+                        'question': newQuestion.format()
+                    })
+            except:
+                    abort(404)
         except:
-                abort(404)
-
+            abort(400)
 
        
     
@@ -239,7 +247,7 @@ def create_app(test_config=None):
             'success': False,
             "error": 400,
             "message": "resource not_found"
-        }), 440
+        }), 404
 
     @app.errorhandler(422)
     def unprocessable(error):

@@ -77,18 +77,164 @@ You will need to provide detailed documentation of your API endpoints including 
 
 - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
 - Request Arguments: None
-- Returns: An object with a single key, `categories`, that contains an object of `id: category_string` key: value pairs.
+- Returns: An object with a 3 keys, `categories`, that contains an object of `id: category_string` key: value pairs; `success`, which determines the success or failure of the request, `total_categories`, which contains the total number of categories in the database
 
 ```json
 {
-  "1": "Science",
-  "2": "Art",
-  "3": "Geography",
-  "4": "History",
-  "5": "Entertainment",
-  "6": "Sports"
+  "success": "True",
+  "categories": {
+      "1": "Science",
+      "2": "Art",
+      "3": "Geography",
+      "4": "History",
+      "5": "Entertainment",
+      "6": "Sports"
+    },
+  "total_categories": "8"
+ 
 }
 ```
+
+`GET '/api/v1.0/questions'`
+- Fetches a dictionary of Trivia questions under a specific category 
+- Request Arguments: `page`- specifies the set of paginated questions to return
+- Returns: An object with a 5 keys, `categories`, that contains an object of `id: category_string` key: value pairs; `success`, which determines the success or failure of the request, `total_questions`, which contains the total number of questions in the database, `questions`, - a set of paginated questions, `current_category`- the current category of the requested questions
+
+```json
+{
+"categories": {
+    "1": "music", 
+    "2": "art"
+  }, 
+  "current_category": {
+    "id": 2
+  }, 
+  "questions": [
+      "answer": "how are yyou", 
+      "category": "i am fine", 
+      "difficulty": 1, 
+      "id": 8, 
+      "question": "zoom"
+    
+  ], 
+  "success": true, 
+  "total_questions": 7
+}
+ 
+
+```
+
+`DELETE '/api/v1.0/questions/<int:id>'`
+
+- deletes a specific question whose id is mentioned in the request parameters
+- Request Arguments: id -  the id of the question
+- Returns: An object with a 4 keys,  `success` - whether the request was successful or not,  `deleted`-  the id of the deleted question, `questions` -
+the remaining set of questions
+
+```json
+ {
+                    "success": "True",
+                    "deleted": 2,
+                    "questions":  [
+                        "answer": "do you love udacity", 
+                        "category": "yes i do", 
+                        "difficulty": 1, 
+                        "id": 8, 
+                        "question": "zoom"
+    
+  ],
+
+                }
+```
+
+
+`POST '/api/v1.0/questions'`
+- adds a question to the database
+- Request Arguments: `question`, `answer`, `difficulty`, `category`
+- Returns: An object with a 2 keys, success - determines whether the question
+  was successfully added to the database or not, `message` - a confirmation message that the question was succesfully added
+
+```json
+{
+                "success": "True",
+                "message": "successfully added WHAT IS YOUR AGE to the database"
+            }
+```
+
+
+
+
+`POST '/api/v1.0/searched_questions'`
+- searches for a particular search term in the database of questions
+- Request Arguments: `searchTerm`
+- Returns: An object with a 3 keys, `success`-determines the success of the 
+request, `questions` - the set of questions containing the searched term, `total_questions` - the total number of questions in the database
+
+```json
+{
+                "success": "True",
+                "questions":  [
+                        "answer": "do you love udacity", 
+                        "category": "yes i do", 
+                        "difficulty": 1, 
+                        "id": 8, 
+                        "question": "zoom"
+    
+  ],
+                "total_questions":12
+            }
+```
+
+
+
+
+`GET '/api/v1.0/categories/<int:id>/questions'`
+- returns the set of paginated questions for a particular category
+- Request Arguments: `id` -  the category id
+- Returns: An object with a 3 keys, `success`-determines the success of the 
+request, `questions` - the set of questions containing the searched term, `total_categories` - the total number of categories in the database
+
+```json
+{
+                "success": "True",
+                "questions":  [
+                        "answer": "do you love udacity", 
+                        "category": "yes i do", 
+                        "difficulty": 1, 
+                        "id": 8, 
+                        "question": "zoom"
+    
+  ],
+                "total_questions":12
+            }
+```
+
+
+
+
+`POST '/api/v1.0/quizzes'`
+- returns a set of fresh questions to the frontend to continue playing the quiz
+- Request Arguments: `previous_questions`- the previous questiions used in the game, `category`, the current category
+- Returns: An object with a 2 keys, `success`-determines the success of the 
+request, `question` - the next set of question to be asked
+
+```json
+{
+                "success": "True",
+                "questions":  [
+                        "answer": "do you love udacity", 
+                        "category": "yes i do", 
+                        "difficulty": 1, 
+                        "id": 8, 
+                        "question": "zoom"
+    
+  ]
+            }
+```
+
+
+
+
 
 ## Testing
 
