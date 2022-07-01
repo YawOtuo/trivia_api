@@ -185,7 +185,7 @@ def create_app(test_config=None):
             
             category = request.json['quiz_category']
             index = len(previous_questions)
-            # print('index..', index, file=open('output.txt', 'a'))
+            print('index..', index, file=open('output.txt', 'a'))
 
             
             # get list from database
