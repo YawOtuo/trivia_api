@@ -147,7 +147,7 @@ def create_app(test_config=None):
             questions = Question.query.filter(
                 Question.question.ilike('%'+query+'%')).all()
 
-            print('questions ...', questions, file=open('output.txt', 'a'))
+            # print('questions ...', questions, file=open('output.txt', 'a'))
             
             return jsonify({
                     'success': True,
@@ -185,7 +185,7 @@ def create_app(test_config=None):
             
             category = request.json['quiz_category']
             index = len(previous_questions)
-            print('index..', index, file=open('output.txt', 'a'))
+            # print('index..', index, file=open('output.txt', 'a'))
 
             
             # get list from database
@@ -201,14 +201,14 @@ def create_app(test_config=None):
                 allQuestionsId.append(i[0])
 
             random.shuffle(allQuestionsId)
-            print('all questions ids. .', allQuestionsId, file=open('output.txt', 'a'))
+            # print('all questions ids. .', allQuestionsId, file=open('output.txt', 'a'))
             
             
-            print('all Questions index..', type(allQuestions[index]), file=open('output.txt', 'a'))
+            # print('all Questions index..', type(allQuestions[index]), file=open('output.txt', 'a'))
         
             newQuestion = Question.query.get(allQuestionsId[index])
             
-            print('new Question..', newQuestion, file=open('output.txt', 'a'))
+            # print('new Question..', newQuestion, file=open('output.txt', 'a'))
 
 
 
