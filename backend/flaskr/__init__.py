@@ -8,7 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import random
 
-from models import setup_db, Question, Category
+from models import setup_db, Category, Question
 
 QUESTIONS_PER_PAGE = 10
 
@@ -103,7 +103,7 @@ def create_app(test_config=None):
                 }
             )
         except:
-            abort(422)
+            abort(404)
            
     """
 
@@ -163,8 +163,8 @@ def create_app(test_config=None):
         try:
             category = Category.query.get(id)
             questions = Question.query.filter(
-                Question.category == category.type).all()
-            if questions is None:
+                Question.category == category.id).all()
+            if category is None:
                 abort(404)
             else:
                 return jsonify(
@@ -175,60 +175,51 @@ def create_app(test_config=None):
                     }
                 )
         except: 
-            abort(404)
+            abort(400)
 
     @app.route('/quizzes', methods=['POST'])
     def get_quiz_questions():
+            print('request body ...', request.json,
+                  file=open('output.txt', 'a'))
             previous_questions = request.json['previous_questions']
             
             category = request.json['quiz_category']
-            # print('previous question ...', previous_questions,
-            #       file=open('output.txt', 'a'))
-
-            oldQuestionsId = [0]
-            lastQuestionId = Question.query.first().id
-            print('previous questions..', previous_questions, file=open('output.txt', 'a'))
-            print('category', category, file=open('output.txt', 'a'))
+            index = len(previous_questions)
+            print('index..', index, file=open('output.txt', 'a'))
 
             
-            for i in range(len(previous_questions)):
-                # print('previous questions index ...', previous_questions[i],
-                #                   file=open('output.txt', 'a'))
+            # get list from database
+            # shuffle
+            # send next question signified by a flag
 
-                oldQuestions = Question.query.filter(Question.id == previous_questions[i], Question.category == category['id']).all()
-                print('old questiosn ...', oldQuestions, file=open('output.txt', 'a'))
-                for question in oldQuestions:
-                    lastQuestionId = question.getLastId()
-                    print('getting last id...', lastQuestionId, file=open('output.txt', 'a'))
+            allQuestionsId = []
+            if category['id'] == 0: 
+                allQuestions = Question.query.with_entities(Question.id).all()
+            else:
+                allQuestions = Question.query.filter(Question.category == category['id']).with_entities(Question.id).all()
+            for i in allQuestions:
+                allQuestionsId.append(i[0])
 
-                    oldQuestionsId.append(question.id)
-
-
-            print('old question id...', oldQuestionsId, file=open('output.txt', 'a'))
-            print('last question id...', lastQuestionId, file=open('output.txt', 'a'))
-
-
+            random.shuffle(allQuestionsId)
+            print('all questions ids. .', allQuestionsId, file=open('output.txt', 'a'))
             
-
-            id = lastQuestionId
             
-            while (id in oldQuestionsId):
-                id = random.randrange(0, lastQuestionId)
+            print('all Questions index..', type(allQuestions[index]), file=open('output.txt', 'a'))
+        
+            newQuestion = Question.query.get(allQuestionsId[index])
             
-            try:
-                    newQuestion = Question.query.get(id)
-                    # print('randint...', id, file=open('output.txt', 'a'))
-
-                    # print('newQuestion', newQuestion,  file=open('output.txt', 'a'))
+            print('new Question..', newQuestion, file=open('output.txt', 'a'))
 
 
 
-                    return jsonify({
-                        'success': True,
-                        'question': newQuestion.format()
-                    })
-            except:
-                    abort(404)
+            # newQuestion = Question.query.filter( Question.category == category['id']).first()
+
+
+            return jsonify({
+                'success': True,
+                'question': newQuestion.format()
+            })
+            
         
 
        

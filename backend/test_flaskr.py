@@ -2,7 +2,7 @@ import os
 import unittest
 import json
 from flask_sqlalchemy import SQLAlchemy
-    
+
 from flaskr import create_app
 from models import setup_db, Question, Category
 from settings import DB_NAME, DB_USER, DB_PASSWORD, DBTEST_NAME
@@ -56,14 +56,13 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(len(data["categories"]))
 
 
-    def test_questions_based_on_categories(self):
-        res = self.client().get("/categories/1/questions", )
+    def test_get_questions_based_on_categories(self):
+        res = self.client().get("/categories/1/questions")
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
         
         self.assertEqual(data["success"], True)
-        self.assertTrue(data["total_categories"])
 
     def test_create_new_question(self):
         res = self.client().post("/questions", json= {'question': 'name', 'answer':'Yes man', 'category':'1', 'difficulty':5})
@@ -80,17 +79,16 @@ class TriviaTestCase(unittest.TestCase):
 
 
     def test_quizzes(self):
-        res = self.client().post("/quizzes", json={'previous_questions': ["1"], 
-        "quiz_category":'art'})
+        res = self.client().post("/quizzes", json={'previous_questions': [10],
+ 'quiz_category': {'type': 'Sports', 'id': '6'}})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data["success"], True)
-        print(data)
 
 
     def test_400_bad_request_sent(self):
-        res = self.client().post("/quizzes", json={'previous_questions': ["name"], 
-        "quiz_category":'art'})
+        res = self.client().get("/categories/404/questions", json={'previous_questions': [10, 10],
+ 'quiz_category': {'type': 'Sports', 'id': '6'}})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 400)
         self.assertEqual(data["success"], False)
@@ -98,7 +96,7 @@ class TriviaTestCase(unittest.TestCase):
 
 
     def test_404_resource_not_found(self):
-        res = self.client().get("/categories/100/questions", )
+        res = self.client().delete("/questions/100000", )
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 404)
@@ -106,10 +104,10 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data["success"], False)
     
     def test_422_request_unprocessable(self):
-        res = self.client().delete("/questions/3000")
+        res = self.client().post("/searched_questions", json={'searchTerm': '12'})
         data = json.loads(res.data)
-        self.assertEqual(res.status_code, 422)
-        self.assertEqual(data["success"], False)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data["success"], True)
 
 
 

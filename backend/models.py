@@ -58,6 +58,7 @@ class Question(db.Model):
             'category': self.category,
             'difficulty': self.difficulty
             }
+    
     def getLastId(self):
         ids = db.session.query(Question).order_by("id").all()
         return ids[-1].id
