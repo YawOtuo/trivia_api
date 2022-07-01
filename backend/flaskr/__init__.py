@@ -48,18 +48,21 @@ def create_app(test_config=None):
 
     @app.route('/categories')
     def get_categories():
-        categories = Category.query.order_by(Category.id).all()
-        # print('categories ...', categories, file=open('output.txt', 'a'))
+        try:
+            categories = Category.query.order_by(Category.id).all()
 
-        if len(categories) == 0:
-            abort(404)
-        return jsonify(
-            {
-                'success': True,
-                'categories': {category.id: category.type for category in categories},
-                'total_categories': len(categories)
-            }
-        )
+            if len(categories) == 0:
+                abort(404)
+            return jsonify(
+                {
+                    'success': True,
+                    'categories': {category.id: category.type for category in categories},
+                    'total_categories': len(categories)
+                }
+            )
+        except:
+            abort(422)
+
 
     @app.route('/questions')
     def get_questions():
@@ -184,41 +187,49 @@ def create_app(test_config=None):
             previous_questions = request.json['previous_questions']
             
             category = request.json['quiz_category']
-            index = len(previous_questions)
-            print('index..', index, file=open('output.txt', 'a'))
-
             
-            # get list from database
-            # shuffle
-            # send next question signified by a flag
-
             allQuestionsId = []
             if category['id'] == 0: 
                 allQuestions = Question.query.with_entities(Question.id).all()
+            
             else:
                 allQuestions = Question.query.filter(Question.category == category['id']).with_entities(Question.id).all()
+            
             for i in allQuestions:
                 allQuestionsId.append(i[0])
 
-            random.shuffle(allQuestionsId)
-            # print('all questions ids. .', allQuestionsId, file=open('output.txt', 'a'))
+            for i in previous_questions:
+                if i in allQuestionsId: 
+                    allQuestionsId.remove(i)
+            if allQuestionsId:
+                random.shuffle(allQuestionsId)
+                print('all questions ids. .', allQuestionsId, file=open('output.txt', 'a'))
+                
+                
+                print('all Questions index..', type(allQuestions[0]), file=open('output.txt', 'a'))
+                print('all questions ids. .', allQuestionsId, file=open('output.txt', 'a'))
+
+
             
+                newQuestion = Question.query.get(allQuestionsId[0])
+                print('new Question..', newQuestion, file=open('output.txt', 'a'))
+
+
+                    # newQuestion = Question.query.filter( Question.category == category['id']).first()
+
+
+                return jsonify({
+                        'success': True,
+                        'question': newQuestion.format(),
+                    })
+            else:
+                return jsonify({
+                        'success': True,
+                        'question':'',
+                    })
+
             
-            # print('all Questions index..', type(allQuestions[index]), file=open('output.txt', 'a'))
-        
-            newQuestion = Question.query.get(allQuestionsId[index])
-            
-            # print('new Question..', newQuestion, file=open('output.txt', 'a'))
 
-
-
-            # newQuestion = Question.query.filter( Question.category == category['id']).first()
-
-
-            return jsonify({
-                'success': True,
-                'question': newQuestion.format()
-            })
             
         
 
